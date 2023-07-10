@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Sponsorship</title>
+    <script>
+        function sendFormData(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const url = "https://hvpfqi4bob.execute-api.eu-west-2.amazonaws.com/sponsorship-checker";
+            const options = {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            };
+            fetch(url, options)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // display the result in the HTML
+                    const resultDiv = document.getElementById("result");
+                    resultDiv.innerText = data;
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Check Sponsorship</h1>
+    <form onsubmit="sendFormData(event)">
+        <label for="word">Word:</label>
+        <input type="text" id="word" name="word"><br><br>
+        <label for="based_on">Based on:</label>
+        <input type="text" id="based_on" name="based_on"><br><br>
+        <label for="route">Route:</label>
+        <input type="text" id="route" name="route"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="result"></div>
+</body>
+</html>

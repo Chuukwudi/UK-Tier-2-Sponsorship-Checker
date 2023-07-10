@@ -1,0 +1,52 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+  th {
+    color: #fff;
+  }
+</style>
+<form onsubmit="event.preventDefault(); buildTableFromAPI();">
+  <button type="submit">Submit</button>
+</form>
+<table class="table table-striped">
+  <thead class="bg-info">
+    <tr>
+      <th>Organisation Name</th>
+      <th>Town/City</th>
+      <th>County</th>
+      <th>Type &amp; Rating</th>
+      <th>Route</th>
+    </tr>
+  </thead>
+  <tbody id="myTable">
+  </tbody>
+</table>
+<script>
+  function buildTableFromAPI() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+    var raw = "{\"word\": \"Sunderland\",\"based_on\": \"toc\",\"route\": \"Skilled Worker\"}";
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    fetch("https://hvpfqi4bob.execute-api.eu-west-2.amazonaws.com/sponsorship-checker", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var output = JSON.parse(result);
+        var myArray = output.output_table;
+        buildTable(myArray);
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  function buildTable(data) {
+    var table = document.getElementById('myTable');
+    table.innerHTML = "";
+    for (var i = 0; i < data.length; i++) {
+      var row = `<tr>
+								<td>${data[i].name}</td>
+								<td>${data[i].age}</td>
+								<td>${data[i].birthdate}</

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<html>
+    <head>
+        <title>Input Display</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+<body>
+	<label for="word">Enter a word:</label>
+	<input type="text" id="word">
+	<label for="based_on">Based on:</label>
+	<input type="text" id="based_on">
+	<label for="route">Route:</label>
+	<input type="text" id="route">
+	<button onclick="displayInput()">Display</button>
+	<p id="output"></p>
+
+	<script src="script.js"></script>
+
+	<div id = "last_update">
+	</div>
+
+	<table class="table table-striped">
+		<tr  class="bg-info">
+			<th>Organisation Name</th>
+			<th>Town/City</th>
+			<th>County</th>
+			<th>Type & Rating</th>
+			<th>Route</th>
+		</tr>
+	
+		<tbody id="myTable">
+			
+		</tbody>
+	</table>
+</body>
+</html>
